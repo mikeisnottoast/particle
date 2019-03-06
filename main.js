@@ -5,33 +5,44 @@ let padtop = -8
 let npos = 0
 let nbot = 8
 let ntop = -8
-let edge = 0
+let npcedge = 0
+let score = 0
+let balls = []
+
 function setup() {
 createCanvas(300, 100);
-edge = width - 10;
-ball = new Ball();
+npcedge = width - 10;
+balls.push(new Ball());
 pad = new Pad();
 npc = new Npc();
 }
 	
 function draw(){
 
-padbot = padpos+8;
-padtop = padpos-8;
-nbot = npos+8;
-ntop = npos-8;
-	background(0);
+padbot = padpos+9;
+padtop = padpos-9;
+nbot = npos+9;
+ntop = npos-9;
+
+background(0);
+ for (let i = 0; i < balls.length; i++) {
+  	balls[i].show();
+balls[i].move();
+  }
+
+
 	npc.show();
 	npc.play();
 	pad.show();
-ball.show();
-ball.move();
-console.log(padpos);
+
+console.log(score);
 
 
 
 
 }
+
+function keyPressed(){balls.push(new Ball());}
 
 //pong ball
 class Ball{
@@ -54,15 +65,17 @@ move(){
 
 if (this.y >= height){this.yspeed = -1;}
 if (this.y <= 0){this.yspeed = 1;}
+this.y += this.yspeed;
 	if (this.xdirection  == 0){
 
 
 		this.x --;
-		this.y += this.yspeed;
-		if (this.x == 10){
+		// this.y += this.yspeed;
+		if (this.x == 15){
 			if (this.y <= padbot && this.y >= padtop){
 				this.xdirection = 1;
 			}
+				else	{balls.push(new Ball());} 
 		}
 
 	}
@@ -71,12 +84,14 @@ if (this.y <= 0){this.yspeed = 1;}
 
 
 		this.x ++;
-			this.y += this.yspeed;
-		if (this.x == edge){
+			// this.y += this.yspeed;
+		if (this.x == npcedge){
 			if (this.y <= nbot && this.y >= ntop){
 				this.xdirection = 0;
 			}
+			else	{balls.push(new Ball());}
 		}
+
 
 }}
 }
