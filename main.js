@@ -19,10 +19,13 @@ npc = new Npc();
 	
 function draw(){
 
-padbot = padpos+9;
-padtop = padpos-9;
-nbot = npos+9;
-ntop = npos-9;
+	padpos = pad.y;
+
+
+padbot = padpos+15;
+padtop = padpos;
+nbot = npos+15;
+ntop = npos;
 
 background(0);
  for (let i = 0; i < balls.length; i++) {
@@ -106,7 +109,7 @@ class Pad{
 show(){
 	fill(0,255,0);
 	rect(this.x,mouseY,5,15);
-	padpos = mouseY;
+	this.y = mouseY;
 }
 
 }
